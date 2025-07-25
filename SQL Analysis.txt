@@ -1,0 +1,767 @@
+Enter password: **********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 18
+Server version: 8.0.43 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mydb               |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.01 sec)
+
+mysql> USE mydb;
+Database changed
+mysql> SELECT*FROM train LIMIT 10;
++--------+----------------+------------+------------+----------------+-------------+-----------------+-----------+---------------+-----------------+------------+-------------+--------+-----------------+-----------------+--------------+------------------------------------------------------------------+----------+
+| Row ID | Order ID       | Order Date | Ship Date  | Ship Mode      | Customer ID | Customer Name   | Segment   | Country       | City            | State      | Postal Code | Region | Product ID      | Category        | Sub-Category | Product Name                                                     | Sales    |
++--------+----------------+------------+------------+----------------+-------------+-----------------+-----------+---------------+-----------------+------------+-------------+--------+-----------------+-----------------+--------------+------------------------------------------------------------------+----------+
+|      1 | CA-2017-152156 | 08/11/2017 | 11/11/2017 | Second Class   | CG-12520    | Claire Gute     | Consumer  | United States | Henderson       | Kentucky   |       42420 | South  | FUR-BO-10001798 | Furniture       | Bookcases    | Bush Somerset Collection Bookcase                                |   261.96 |
+|      2 | CA-2017-152156 | 08/11/2017 | 11/11/2017 | Second Class   | CG-12520    | Claire Gute     | Consumer  | United States | Henderson       | Kentucky   |       42420 | South  | FUR-CH-10000454 | Furniture       | Chairs       | Hon Deluxe Fabric Upholstered Stacking Chairs, Rounded Back      |   731.94 |
+|      3 | CA-2017-138688 | 12/06/2017 | 16/06/2017 | Second Class   | DV-13045    | Darrin Van Huff | Corporate | United States | Los Angeles     | California |       90036 | West   | OFF-LA-10000240 | Office Supplies | Labels       | Self-Adhesive Address Labels for Typewriters by Universal        |    14.62 |
+|      4 | US-2016-108966 | 11/10/2016 | 18/10/2016 | Standard Class | SO-20335    | Sean O'Donnell  | Consumer  | United States | Fort Lauderdale | Florida    |       33311 | South  | FUR-TA-10000577 | Furniture       | Tables       | Bretford CR4500 Series Slim Rectangular Table                    | 957.5775 |
+|      5 | US-2016-108966 | 11/10/2016 | 18/10/2016 | Standard Class | SO-20335    | Sean O'Donnell  | Consumer  | United States | Fort Lauderdale | Florida    |       33311 | South  | OFF-ST-10000760 | Office Supplies | Storage      | Eldon Fold 'N Roll Cart System                                   |   22.368 |
+|      6 | CA-2015-115812 | 09/06/2015 | 14/06/2015 | Standard Class | BH-11710    | Brosina Hoffman | Consumer  | United States | Los Angeles     | California |       90032 | West   | FUR-FU-10001487 | Furniture       | Furnishings  | Eldon Expressions Wood and Plastic Desk Accessories, Cherry Wood |    48.86 |
+|      7 | CA-2015-115812 | 09/06/2015 | 14/06/2015 | Standard Class | BH-11710    | Brosina Hoffman | Consumer  | United States | Los Angeles     | California |       90032 | West   | OFF-AR-10002833 | Office Supplies | Art          | Newell 322                                                       |     7.28 |
+|      8 | CA-2015-115812 | 09/06/2015 | 14/06/2015 | Standard Class | BH-11710    | Brosina Hoffman | Consumer  | United States | Los Angeles     | California |       90032 | West   | TEC-PH-10002275 | Technology      | Phones       | Mitel 5320 IP Phone VoIP phone                                   |  907.152 |
+|      9 | CA-2015-115812 | 09/06/2015 | 14/06/2015 | Standard Class | BH-11710    | Brosina Hoffman | Consumer  | United States | Los Angeles     | California |       90032 | West   | OFF-BI-10003910 | Office Supplies | Binders      | DXL Angle-View Binders with Locking Rings by Samsill             |   18.504 |
+|     10 | CA-2015-115812 | 09/06/2015 | 14/06/2015 | Standard Class | BH-11710    | Brosina Hoffman | Consumer  | United States | Los Angeles     | California |       90032 | West   | OFF-AP-10002892 | Office Supplies | Appliances   | Belkin F5C206VTEL 6 Outlet Surge                                 |    114.9 |
++--------+----------------+------------+------------+----------------+-------------+-----------------+-----------+---------------+-----------------+------------+-------------+--------+-----------------+-----------------+--------------+------------------------------------------------------------------+----------+
+10 rows in set (0.00 sec)
+
+mysql> DESCRIBE train;
++---------------+--------+------+-----+---------+-------+
+| Field         | Type   | Null | Key | Default | Extra |
++---------------+--------+------+-----+---------+-------+
+| Row ID        | int    | YES  |     | NULL    |       |
+| Order ID      | text   | YES  |     | NULL    |       |
+| Order Date    | text   | YES  |     | NULL    |       |
+| Ship Date     | text   | YES  |     | NULL    |       |
+| Ship Mode     | text   | YES  |     | NULL    |       |
+| Customer ID   | text   | YES  |     | NULL    |       |
+| Customer Name | text   | YES  |     | NULL    |       |
+| Segment       | text   | YES  |     | NULL    |       |
+| Country       | text   | YES  |     | NULL    |       |
+| City          | text   | YES  |     | NULL    |       |
+| State         | text   | YES  |     | NULL    |       |
+| Postal Code   | int    | YES  |     | NULL    |       |
+| Region        | text   | YES  |     | NULL    |       |
+| Product ID    | text   | YES  |     | NULL    |       |
+| Category      | text   | YES  |     | NULL    |       |
+| Sub-Category  | text   | YES  |     | NULL    |       |
+| Product Name  | text   | YES  |     | NULL    |       |
+| Sales         | double | YES  |     | NULL    |       |
++---------------+--------+------+-----+---------+-------+
+18 rows in set (0.02 sec)
+
+mysql> SELECT ROUND(SUM(Sales), 2) AS Total_Sales
+    -> FROM train;
++-------------+
+| Total_Sales |
++-------------+
+|    28609.94 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT Region, ROUND(SUM(Sales), 2) AS Total_Sales
+    -> FROM train
+    -> GROUP BY Region
+    -> ORDER BY Total_Sales DESC;
++---------+-------------+
+| Region  | Total_Sales |
++---------+-------------+
+| West    |    10189.28 |
+| Central |     7939.63 |
+| East    |     6327.33 |
+| South   |      4153.7 |
++---------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT `Customer Name`, ROUND(SUM(Sales), 2) AS Total_Sales
+    -> FROM train
+    -> GROUP BY `Customer Name`
+    -> ORDER BY Total_Sales DESC
+    -> LIMIT 10;
++-----------------+-------------+
+| Customer Name   | Total_Sales |
++-----------------+-------------+
+| Brosina Hoffman |      3714.3 |
+| Tracy Blumstein |     3341.63 |
+| Gene Hale       |     1288.46 |
+| Brendan Sweed   |     1280.99 |
+| Steve Nguyen    |     1228.95 |
+| Janet Molinari  |     1045.21 |
+| Emily Burns     |     1044.63 |
+| Joel Eaton      |     1021.06 |
+| Claire Gute     |       993.9 |
+| Sean O'Donnell  |      979.95 |
++-----------------+-------------+
+10 rows in set (0.01 sec)
+
+mysql> SELECT `Product Name`, ROUND(SUM(Sales), 2) AS Total_Sales
+    -> FROM train
+    -> GROUP BY `Product Name`
+    -> ORDER BY Total_Sales DESC
+    -> LIMIT 10;
++---------------------------------------------------------------------+-------------+
+| Product Name                                                        | Total_Sales |
++---------------------------------------------------------------------+-------------+
+| Riverside Palais Royal Lawyers Bookcase, Royale Cherry Finish       |     3083.43 |
+| Bretford CR4500 Series Slim Rectangular Table                       |     2002.21 |
+| Chromcraft Rectangular Conference Tables                            |     1706.18 |
+| Hunt BOSTON Model 1606 High-Volume Electric Pencil Sharpener, Beige |     1113.02 |
+| GE 30524EE4                                                         |     1097.54 |
+| AT&T CL83451 4-Handset Telephone                                    |     1029.95 |
+| Konftel 250 ConferenceÂ phoneÂ - Charcoal black                     |      911.42 |
+| Mitel 5320 IP Phone VoIP phone                                      |      907.15 |
+| Safco Industrial Wire Shelving                                      |      902.31 |
+| Sanyo 2.5 Cubic Foot Mid-Size Office Refrigerators                  |      839.43 |
++---------------------------------------------------------------------+-------------+
+10 rows in set (0.00 sec)
+
+mysql> SELECT
+    ->   strftime('%Y-%m', `Order Date`) AS Month,
+    ->   ROUND(SUM(Sales), 2) AS Total_Sales
+    -> FROM train;
+ERROR 1305 (42000): FUNCTION mydb.strftime does not exist
+mysql> GROUP BY Month
+    -> ORDER BY Month;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'GROUP BY Month
+ORDER BY Month' at line 1
+mysql> SELECT
+    ->   DATE_FORMAT(STR_TO_DATE(`Order Date`, '%d/%m/%Y'), '%Y-%m') AS Month,
+    ->   ROUND(SUM(Sales), 2) AS Total_Sales
+    -> FROM your_table_name
+    -> GROUP BY Month
+    -> ORDER BY Month;
+ERROR 1146 (42S02): Table 'mydb.your_table_name' doesn't exist
+mysql> SELECT
+    ->   DATE_FORMAT(STR_TO_DATE(`Order Date`, '%d/%m/%Y'), '%Y-%m') AS Month,
+    ->   ROUND(SUM(Sales), 2) AS Total_Sales
+    -> FROM train
+    -> GROUP BY Month
+    -> ORDER BY Month;
++---------+-------------+
+| Month   | Total_Sales |
++---------+-------------+
+| 2015-05 |        55.5 |
+| 2015-06 |      3714.3 |
+| 2015-08 |      444.02 |
+| 2015-09 |       617.7 |
+| 2015-10 |      342.14 |
+| 2015-11 |      685.18 |
+| 2015-12 |     1881.55 |
+| 2016-01 |       99.26 |
+| 2016-03 |      787.53 |
+| 2016-04 |     1582.22 |
+| 2016-09 |     5240.12 |
+| 2016-10 |     1319.91 |
+| 2016-11 |       678.9 |
+| 2016-12 |     1228.95 |
+| 2017-01 |      102.22 |
+| 2017-03 |       63.44 |
+| 2017-04 |      158.37 |
+| 2017-06 |     1524.79 |
+| 2017-07 |       77.88 |
+| 2017-08 |      162.39 |
+| 2017-09 |      265.46 |
+| 2017-10 |       256.2 |
+| 2017-11 |     1417.08 |
+| 2017-12 |     3229.82 |
+| 2018-02 |      159.73 |
+| 2018-04 |       15.55 |
+| 2018-05 |      301.96 |
+| 2018-06 |       51.31 |
+| 2018-07 |       71.37 |
+| 2018-09 |      425.21 |
+| 2018-10 |       55.62 |
+| 2018-11 |      684.38 |
+| 2018-12 |      909.88 |
++---------+-------------+
+33 rows in set (0.00 sec)
+
+mysql> SELECT ROUND(AVG(julianday(`Ship Date`) - julianday(`Order Date`)), 2) AS Avg_Shipping_Days
+    -> FROM train;
+ERROR 1305 (42000): FUNCTION mydb.julianday does not exist
+mysql> SELECT
+    ->   ROUND(AVG(DATEDIFF(
+    ->     STR_TO_DATE(`Ship Date`, '%d/%m/%Y'),
+    ->     STR_TO_DATE(`Order Date`, '%d/%m/%Y')
+    ->   )), 2) AS Avg_Shipping_Days
+    -> FROM train;
++-------------------+
+| Avg_Shipping_Days |
++-------------------+
+|              4.25 |
++-------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT Category, `Sub-Category`, ROUND(SUM(Sales), 2) AS Total_Sales
+    -> FROM train
+    -> GROUP BY Category, `Sub-Category`
+    -> ORDER BY Total_Sales DESC;
++-----------------+--------------+-------------+
+| Category        | Sub-Category | Total_Sales |
++-----------------+--------------+-------------+
+| Technology      | Phones       |     5481.69 |
+| Furniture       | Tables       |     5113.62 |
+| Furniture       | Bookcases    |     3877.79 |
+| Furniture       | Chairs       |     3453.76 |
+| Office Supplies | Storage      |      2990.4 |
+| Office Supplies | Art          |     1386.67 |
+| Office Supplies | Appliances   |     1369.52 |
+| Furniture       | Furnishings  |     1365.84 |
+| Office Supplies | Binders      |     1011.78 |
+| Technology      | Accessories  |      994.46 |
+| Office Supplies | Paper        |      743.09 |
+| Office Supplies | Envelopes    |      578.64 |
+| Office Supplies | Labels       |       95.96 |
+| Office Supplies | Fasteners    |       80.83 |
+| Office Supplies | Supplies     |       65.88 |
++-----------------+--------------+-------------+
+15 rows in set (0.00 sec)
+
+mysql> SELECT Segment, ROUND(SUM(Sales), 2) AS Total_Sales
+    -> FROM train
+    -> GROUP BY Segment
+    -> ORDER BY Total_Sales DESC;
++-------------+-------------+
+| Segment     | Total_Sales |
++-------------+-------------+
+| Consumer    |    19343.59 |
+| Corporate   |     5715.72 |
+| Home Office |     3550.63 |
++-------------+-------------+
+3 rows in set (0.01 sec)
+
+mysql> SELECT State, ROUND(SUM(Sales), 2) AS Total_Sales
+    -> FROM train
+    -> GROUP BY State
+    -> ORDER BY Total_Sales DESC
+    -> LIMIT 10;
++--------------+-------------+
+| State        | Total_Sales |
++--------------+-------------+
+| California   |     6019.33 |
+| Pennsylvania |     3476.75 |
+| Texas        |     3424.96 |
+| New York     |     1843.41 |
+| Illinois     |     1710.71 |
+| Arizona      |     1527.37 |
+| Washington   |     1195.51 |
+| Tennessee    |     1159.55 |
+| Utah         |     1100.13 |
+| Florida      |     1075.56 |
++--------------+-------------+
+10 rows in set (0.00 sec)
+
+mysql> SELECT `Ship Mode`, COUNT(*) AS Order_Count
+    -> FROM train
+    -> GROUP BY `Ship Mode`
+    -> ORDER BY Order_Count DESC;
++----------------+-------------+
+| Ship Mode      | Order_Count |
++----------------+-------------+
+| Standard Class |          90 |
+| Second Class   |          29 |
+| First Class    |          26 |
++----------------+-------------+
+3 rows in set (0.01 sec)
+
+mysql> SELECT
+    ->   `Customer Name`,
+    ->   ROUND(SUM(Sales), 2) AS Total_Sales,
+    ->   RANK() OVER (ORDER BY SUM(Sales) DESC) AS Sales_Rank
+    -> FROM train
+    -> GROUP BY `Customer Name`;
++--------------------+-------------+------------+
+| Customer Name      | Total_Sales | Sales_Rank |
++--------------------+-------------+------------+
+| Brosina Hoffman    |      3714.3 |          1 |
+| Tracy Blumstein    |     3341.63 |          2 |
+| Gene Hale          |     1288.46 |          3 |
+| Brendan Sweed      |     1280.99 |          4 |
+| Steve Nguyen       |     1228.95 |          5 |
+| Janet Molinari     |     1045.21 |          6 |
+| Emily Burns        |     1044.63 |          7 |
+| Joel Eaton         |     1021.06 |          8 |
+| Claire Gute        |       993.9 |          9 |
+| Sean O'Donnell     |      979.95 |         10 |
+| Sandra Glassco     |      839.43 |         11 |
+| Dave Kipp          |      787.53 |         12 |
+| Helen Andreada     |      671.93 |         13 |
+| Pete Kriz          |      665.88 |         14 |
+| Ted Butterfield    |      655.09 |         15 |
+| Philip Fox         |       617.7 |         16 |
+| Alan Dominguez     |      600.56 |         17 |
+| Patrick O'Donnell  |      513.92 |         18 |
+| Steven Cartwright  |       487.5 |         19 |
+| Irene Maddox       |      407.98 |         20 |
+| Justin Ellison     |      384.45 |         21 |
+| Lena Cacioppo      |      341.26 |         22 |
+| Pete Armstrong     |      339.96 |         23 |
+| Lindsay Shagiari   |      319.98 |         24 |
+| Kunst Miller       |      266.29 |         25 |
+| Lena Creighton     |       256.2 |         26 |
+| Troy Staebel       |      246.38 |         27 |
+| Zuschuss Donatelli |      244.76 |         28 |
+| Christopher Schild |      230.38 |         29 |
+| Stewart Carmichael |       224.9 |         30 |
+| Paul Stevenson     |      213.12 |         31 |
+| Darren Powers      |      209.55 |         32 |
+| Julie Creighton    |      200.98 |         33 |
+| Ryan Crowe         |      199.26 |         34 |
+| Sally Hughsby      |      163.38 |         35 |
+| Rick Bensley       |      162.39 |         36 |
+| Dorothy Wardle     |      159.73 |         37 |
+| Gary Mitchum       |      158.37 |         38 |
+| Greg Guthrie       |      157.79 |         39 |
+| Linda Cazamias     |      147.17 |         40 |
+| Janet Martin       |      105.41 |         41 |
+| Clay Ludtke        |       103.2 |         42 |
+| Eric Hoffmann      |      102.22 |         43 |
+| Jim Sink           |      100.16 |         44 |
+| Karl Braun         |       99.26 |         45 |
+| Parhena Norris     |       96.53 |         46 |
+| Erin Smith         |       95.62 |         47 |
+| Maureen Gastineau  |       93.89 |         48 |
+| Jonathan Doherty   |        82.8 |         49 |
+| Ken Black          |        79.8 |         50 |
+| Elpida Rittenbach  |       77.88 |         51 |
+| Ruben Ausman       |       77.88 |         51 |
+| Karen Daniels      |       75.88 |         53 |
+| Sandra Flanagan    |       71.37 |         54 |
+| Harold Pawlan      |       71.35 |         55 |
+| Lena Hernandez     |        66.8 |         56 |
+| Odella Nelson      |       63.44 |         57 |
+| Alejandro Grove    |        55.5 |         58 |
+| Katherine Ducich   |       51.31 |         59 |
+| Cynthia Voltz      |       41.96 |         60 |
+| Duane Noonan       |       36.29 |         61 |
+| Matt Abelman       |       29.47 |         62 |
+| Ken Brennan        |       28.49 |         63 |
+| Paul Gonzalez      |       26.15 |         64 |
+| Gary Zandusky      |       23.92 |         65 |
+| Andrew Allen       |       15.55 |         66 |
+| Darrin Van Huff    |       14.62 |         67 |
+| Roger Barcio       |        5.68 |         68 |
+| Henry MacAllister  |        4.62 |         69 |
++--------------------+-------------+------------+
+69 rows in set (0.01 sec)
+
+mysql> SELECT
+    ->   `Customer Name`,
+    ->   GROUP_CONCAT(DISTINCT `Product Name` SEPARATOR ', ') AS Products_Ordered
+    -> FROM train
+    -> GROUP BY `Customer Name`;
++--------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Customer Name      | Products_Ordered                                                                                                                                                                                                                                                                                                                                                    |
++--------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Alan Dominguez     | Global Deluxe High-Back Manager's Chair                                                                                                                                                                                                                                                                                                                             |
+| Alejandro Grove    | Fellowes Super Stor/Drawer                                                                                                                                                                                                                                                                                                                                          |
+| Andrew Allen       | Xerox 1967                                                                                                                                                                                                                                                                                                                                                          |
+| Brendan Sweed      | Hunt BOSTON Model 1606 High-Volume Electric Pencil Sharpener, Beige, netTALK DUO VoIP Telephone Service                                                                                                                                                                                                                                                             |
+| Brosina Hoffman    | Belkin F5C206VTEL 6 Outlet Surge, Chromcraft Rectangular Conference Tables, DXL Angle-View Binders with Locking Rings by Samsill, Eldon Expressions Wood and Plastic Desk Accessories, Cherry Wood, Konftel 250 ConferenceÂ phoneÂ - Charcoal black, Mitel 5320 IP Phone VoIP phone, Newell 322                                                                     |
+| Christopher Schild | Safco Industrial Wire Shelving                                                                                                                                                                                                                                                                                                                                      |
+| Claire Gute        | Bush Somerset Collection Bookcase, Hon Deluxe Fabric Upholstered Stacking Chairs, Rounded Back                                                                                                                                                                                                                                                                      |
+| Clay Ludtke        | Avery Durable Plastic 1" Binders", Hunt PowerHouse Electric Pencil Sharpener, Blue                                                                                                                                                                                                                                                                                  |
+| Cynthia Voltz      | Magnifier Swing Arm Lamp                                                                                                                                                                                                                                                                                                                                            |
+| Darren Powers      | Avery 485, C-Line Peel & Stick Add-On Filing Pockets, 8-3/4 x 5-1/8, 10/Pack, Global Leather Task Chair, Black, Longer-Life Soft White Bulbs                                                                                                                                                                                                                        |
+| Darrin Van Huff    | Self-Adhesive Address Labels for Typewriters by Universal                                                                                                                                                                                                                                                                                                           |
+| Dave Kipp          | Hon Racetrack Conference Tables                                                                                                                                                                                                                                                                                                                                     |
+| Dorothy Wardle     | Anker 36W 4-Port USB Wall Charger Travel Power Adapter for iPhone 5s 5c 5, Staples, Xerox 1916                                                                                                                                                                                                                                                                      |
+| Duane Noonan       | Premium Writing Pencils, Soft, #2 by Central Association for the Blind, Sortfiler Multipurpose Personal File Organizer, Black                                                                                                                                                                                                                                       |
+| Elpida Rittenbach  | Fellowes Basic Home/Office Series Surge Protectors                                                                                                                                                                                                                                                                                                                  |
+| Emily Burns        | Bretford CR4500 Series Slim Rectangular Table                                                                                                                                                                                                                                                                                                                       |
+| Eric Hoffmann      | ImationÂ 8GB Mini TravelDrive USB 2.0Â Flash Drive, Wilson Jones Active Use Binders                                                                                                                                                                                                                                                                                 |
+| Erin Smith         | Advantus 10-Drawer Portable Organizer, Chrome Metal Frame, Smoke Drawers                                                                                                                                                                                                                                                                                            |
+| Gary Mitchum       | Eldon Portable Mobile Manager                                                                                                                                                                                                                                                                                                                                       |
+| Gary Zandusky      | Universal Premium White Copier/Laser Paper (20Lb. and 87 Bright)                                                                                                                                                                                                                                                                                                    |
+| Gene Hale          | Electrix Architect's Clamp-On Swing Arm Lamp, Black, GE 30524EE4                                                                                                                                                                                                                                                                                                    |
+| Greg Guthrie       | GBC DocuBind 300 Electric Binding Machine                                                                                                                                                                                                                                                                                                                           |
+| Harold Pawlan      | Holmes Replacement Filter for HEPA Air Cleaner, Very Large Room, HEPA Filter, Storex DuraTech Recycled Plastic Frosted Binders                                                                                                                                                                                                                                      |
+| Helen Andreada     | Safco Industrial Wire Shelving                                                                                                                                                                                                                                                                                                                                      |
+| Henry MacAllister  | Avery Binding System Hidden Tab Executive Style Index Sets                                                                                                                                                                                                                                                                                                          |
+| Irene Maddox       | Fellowes PB200 Plastic Comb Binding Machine                                                                                                                                                                                                                                                                                                                         |
+| Janet Martin       | Memorex Mini Travel Drive 8 GB USB 2.0 Flash Drive, Newell Chalk Holder, Speck Products Candyshell Flip Case                                                                                                                                                                                                                                                        |
+| Janet Molinari     | Advantus Push Pins, AT&T CL83451 4-Handset Telephone                                                                                                                                                                                                                                                                                                                |
+| Jim Sink           | Panasonic Kx-TS550, Turquoise Lead Holder with Pocket Clip, Xerox 1995                                                                                                                                                                                                                                                                                              |
+| Joel Eaton         | Eldon Expressions Desk Accessory, Wood Pencil Holder, Oak, High-Back Leather Manager's Chair, Safco Industrial Wire Shelving System, Tenex Traditional Chairmats for Medium Pile Carpet, Standard Lip, 36" x 48"""                                                                                                                                                  |
+| Jonathan Doherty   | Howard Miller 13-3/4" Diameter Brushed Chrome Round Wall Clock"                                                                                                                                                                                                                                                                                                     |
+| Julie Creighton    | Jet-Pak Recycled Peel 'N' Seal Padded Mailers                                                                                                                                                                                                                                                                                                                       |
+| Justin Ellison     | Plantronics CordlessÂ Phone HeadsetÂ with In-line Volume - M214C                                                                                                                                                                                                                                                                                                    |
+| Karen Daniels      | Snap-A-Way Black Print Carbonless Ruled Speed Letter, Triplicate                                                                                                                                                                                                                                                                                                    |
+| Karl Braun         | Ibico Standard Transparent Covers, Seth Thomas 13 1/2" Wall Clock", Xerox 1999                                                                                                                                                                                                                                                                                      |
+| Katherine Ducich   | Trimflex Flexible Post Binders                                                                                                                                                                                                                                                                                                                                      |
+| Ken Black          | Acco Six-Outlet Power Strip, 4' Cord Length, Newell 318                                                                                                                                                                                                                                                                                                             |
+| Ken Brennan        | Economy Binders, SimpliFile Personal File, Black Granite, 15w x 6-15/16d x 11-1/4h                                                                                                                                                                                                                                                                                  |
+| Kunst Miller       | Acco PRESSTEX Data Binder with Storage Hooks, Dark Blue, 14 7/8" X 11""", Luxo Economy Swing Arm Lamp, Verbatim 25 GB 6x Blu-ray Single Layer Recordable Disc, 3/Pack, Xerox 1943                                                                                                                                                                                   |
+| Lena Cacioppo      | Deflect-o DuraMat Lighweight, Studded, Beveled Mat for Low Pile Carpeting, Logitech K350 2.4Ghz Wireless Keyboard                                                                                                                                                                                                                                                   |
+| Lena Creighton     | Fiskars Softgrip Scissors, GBC Wire Binding Strips, Ideal Clamps, Longer-Life Soft White Bulbs, Sanford Colorific Colored Pencils, 12/Box, Xerox 1880, Xerox 195                                                                                                                                                                                                    |
+| Lena Hernandez     | ImationÂ 8gb Micro Traveldrive Usb 2.0Â Flash Drive, LF Elite 3D Dazzle Designer Hard Case Cover, Lf Stylus Pen and Wiper For Apple Iphone 5c Mini Lite                                                                                                                                                                                                             |
+| Linda Cazamias     | Panasonic Kx-TS550                                                                                                                                                                                                                                                                                                                                                  |
+| Lindsay Shagiari   | Eldon Cleatmat Plus Chair Mats for High Pile Carpets, Global Task Chair, Black                                                                                                                                                                                                                                                                                      |
+| Matt Abelman       | Easy-staple paper                                                                                                                                                                                                                                                                                                                                                   |
+| Maureen Gastineau  | Seth Thomas 14" Putty-Colored Wall Clock"                                                                                                                                                                                                                                                                                                                           |
+| Odella Nelson      | Verbatim 25 GB 6x Blu-ray Single Layer Recordable Disc, 25/Pack, Wilson Jones Leather-Like Binders with DublLock Round Rings                                                                                                                                                                                                                                        |
+| Parhena Norris     | 9-3/4 Diameter Round Wall Clock                                                                                                                                                                                                                                                                                                                                     |
+| Patrick O'Donnell  | Gould Plastics 9-Pocket Panel Bin, 18-3/8w x 5-1/4d x 20-1/2h, Black, Novimex Swivel Fabric Task Chair                                                                                                                                                                                                                                                              |
+| Paul Gonzalez      | Avery 511, LogitechÂ LS21 Speaker System - PC Multimedia - 2.1-CH - Wired                                                                                                                                                                                                                                                                                           |
+| Paul Stevenson     | Global Value Mid-Back Manager's Chair, Gray                                                                                                                                                                                                                                                                                                                         |
+| Pete Armstrong     | LogitechÂ Gaming G510s - Keyboard                                                                                                                                                                                                                                                                                                                                   |
+| Pete Kriz          | Stur-D-Stor Shelving, Vertical 5-Shelf: 72"H x 36""W x 18 1/2""D"                                                                                                                                                                                                                                                                                                   |
+| Philip Fox         | Bevis 44 x 96 Conference Tables                                                                                                                                                                                                                                                                                                                                     |
+| Rick Bensley       | Avery Hidden Tab Dividers for Binding Systems, Avery Personal Creations Heavyweight Cards, SanDisk Ultra 64 GB MicroSDHC Class 10 Memory Card                                                                                                                                                                                                                       |
+| Roger Barcio       | Flexible Leather- Look Classic Collection Ring Binder                                                                                                                                                                                                                                                                                                               |
+| Ruben Ausman       | Eldon Base for stackable storage shelf, platinum                                                                                                                                                                                                                                                                                                                    |
+| Ryan Crowe         | OIC Colored Binder Clips, Assorted Sizes, Redi-Strip #10 Envelopes, 4 1/8 x 9 1/2, Tyvek  Top-Opening Peel & Seel Envelopes, Plain White, Xerox 1921                                                                                                                                                                                                                |
+| Sally Hughsby      | Convenience Packs of Business Envelopes, Newell 343, Xerox 1911                                                                                                                                                                                                                                                                                                     |
+| Sandra Flanagan    | Global Deluxe Stacking Chair, Gray                                                                                                                                                                                                                                                                                                                                  |
+| Sandra Glassco     | Sanyo 2.5 Cubic Foot Mid-Size Office Refrigerators                                                                                                                                                                                                                                                                                                                  |
+| Sean O'Donnell     | Bretford CR4500 Series Slim Rectangular Table, Eldon Fold 'N Roll Cart System                                                                                                                                                                                                                                                                                       |
+| Steve Nguyen       | #10-4 1/8" x 9 1/2"" Premium Diagonal Seam Envelopes", Atlantic Metals Mobile 3-Shelf Bookcases, Custom Colors, Global Fabric Manager's Chair, Dark Gray, Plantronics HL10 Handset Lifter                                                                                                                                                                           |
+| Steven Cartwright  | Artistic Insta-Plaque, Companion Letter/Legal File, Black, DXL Angle-View Binders with Locking Rings by Samsill, Globe Weis Peel & Seel First Class Envelopes, KLD Oscar II Style Snap-on Ultra Thin Side Flip Synthetic Leather Cover Case for HTC One HTC M7                                                                                                      |
+| Stewart Carmichael | 1.7 Cubic Foot Compact "Cube"" Office Refrigerators", Avery Heavy-Duty EZD  Binder With Locking Rings                                                                                                                                                                                                                                                               |
+| Ted Butterfield    | Array Parchment Paper, Assorted Colors, Home/Office Personal File Carts, ImationÂ 8gb Micro Traveldrive Usb 2.0Â Flash Drive, Novimex Turbo Task Chair, Plastic Binding Combs, Prang Dustless Chalk Sticks, Xerox 232                                                                                                                                               |
+| Tracy Blumstein    | Avery Recycled Flexi-View Covers for Binding Systems, BOSTON Model 1800 Electric Pencil Sharpeners, Putty/Woodgrain, Howard Miller 13-3/4" Diameter Brushed Chrome Round Wall Clock", Lumber Crayons, Poly String Tie Envelopes, Riverside Palais Royal Lawyers Bookcase, Royale Cherry Finish, Telephone Message Books with Fax/Mobile Section, 5 1/2" x 3 3/16""" |
+| Troy Staebel       | Avery Durable Slant Ring Binders, No Labels, Trav-L-File Heavy-Duty Shuttle II, Black                                                                                                                                                                                                                                                                               |
+| Zuschuss Donatelli | Cisco SPA 501G IP Phone, Newell 341, Wilson Jones Hanging View Binder, White, 1""                                                                                                                                                                                                                                                                                   |
++--------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+69 rows in set (0.01 sec)
+
+mysql> SELECT *
+    -> FROM (
+    ->   SELECT
+    ->     `Customer ID`,
+    ->     `Order ID`,
+    ->     STR_TO_DATE(`Order Date`, '%d/%m/%Y') AS OrderDate,
+    ->     ROW_NUMBER() OVER (PARTITION BY `Customer ID` ORDER BY STR_TO_DATE(`Order Date`, '%d/%m/%Y')) AS rn
+    ->   FROM train
+    -> ) AS sub
+    -> WHERE rn = 1;
++-------------+----------------+------------+----+
+| Customer ID | Order ID       | OrderDate  | rn |
++-------------+----------------+------------+----+
+| AA-10480    | CA-2018-114412 | 2018-04-15 |  1 |
+| AD-10180    | US-2015-152030 | 2015-12-26 |  1 |
+| AG-10270    | CA-2015-167164 | 2015-05-13 |  1 |
+| BH-11710    | CA-2015-115812 | 2015-06-09 |  1 |
+| BS-11590    | CA-2015-106376 | 2015-12-05 |  1 |
+| CG-12520    | CA-2017-152156 | 2017-11-08 |  1 |
+| CL-12565    | CA-2017-128867 | 2017-11-03 |  1 |
+| CS-12400    | US-2018-119662 | 2018-11-13 |  1 |
+| CV-12805    | CA-2018-146780 | 2018-12-25 |  1 |
+| DK-13090    | CA-2016-110457 | 2016-03-02 |  1 |
+| DN-13690    | CA-2015-139451 | 2015-10-12 |  1 |
+| DP-13000    | CA-2016-115742 | 2016-04-18 |  1 |
+| DV-13045    | CA-2017-138688 | 2017-06-12 |  1 |
+| DW-13585    | US-2018-164147 | 2018-02-02 |  1 |
+| EB-13870    | CA-2016-106320 | 2016-09-25 |  1 |
+| EH-13945    | CA-2017-121755 | 2017-01-16 |  1 |
+| ER-13855    | CA-2017-149223 | 2017-09-06 |  1 |
+| ES-14080    | CA-2018-139619 | 2018-09-19 |  1 |
+| GG-14650    | US-2016-136476 | 2016-04-05 |  1 |
+| GH-14485    | CA-2017-117590 | 2017-12-08 |  1 |
+| GM-14455    | CA-2017-159695 | 2017-04-05 |  1 |
+| GZ-14470    | CA-2017-129903 | 2017-12-01 |  1 |
+| HA-14920    | CA-2016-110744 | 2016-09-07 |  1 |
+| HM-14980    | CA-2017-106075 | 2017-09-18 |  1 |
+| HP-14815    | US-2016-118983 | 2016-11-22 |  1 |
+| IM-15070    | CA-2017-161389 | 2017-12-05 |  1 |
+| JC-16105    | CA-2016-149734 | 2016-09-03 |  1 |
+| JD-15895    | CA-2017-110366 | 2017-09-05 |  1 |
+| JE-15745    | US-2015-147606 | 2015-11-26 |  1 |
+| JE-16165    | CA-2017-114489 | 2017-12-05 |  1 |
+| JM-15250    | CA-2018-119004 | 2018-11-23 |  1 |
+| JM-15265    | CA-2017-105816 | 2017-12-11 |  1 |
+| JS-15685    | CA-2017-109806 | 2017-09-17 |  1 |
+| KB-16315    | CA-2016-149587 | 2016-01-31 |  1 |
+| KB-16585    | CA-2017-137330 | 2017-12-09 |  1 |
+| KB-16600    | US-2018-118038 | 2018-12-09 |  1 |
+| KD-16270    | CA-2017-119823 | 2017-06-04 |  1 |
+| KD-16345    | CA-2018-157833 | 2018-06-17 |  1 |
+| KM-16720    | CA-2016-135545 | 2016-11-24 |  1 |
+| LC-16870    | US-2016-156867 | 2016-11-13 |  1 |
+| LC-16885    | CA-2017-145583 | 2017-10-13 |  1 |
+| LC-16930    | CA-2018-120999 | 2018-09-10 |  1 |
+| LH-16900    | CA-2017-169194 | 2017-06-20 |  1 |
+| LS-16975    | US-2017-125969 | 2017-11-06 |  1 |
+| MA-17560    | CA-2018-107727 | 2018-10-19 |  1 |
+| MG-17680    | CA-2015-110072 | 2015-10-22 |  1 |
+| ON-18715    | CA-2017-118255 | 2017-03-11 |  1 |
+| PA-19060    | CA-2016-129476 | 2016-10-15 |  1 |
+| PF-19165    | US-2015-134614 | 2015-09-20 |  1 |
+| PG-18895    | CA-2018-155558 | 2018-10-26 |  1 |
+| PK-19075    | CA-2015-105893 | 2015-11-11 |  1 |
+| PN-18775    | CA-2018-161018 | 2018-11-09 |  1 |
+| PO-18865    | CA-2015-146703 | 2015-10-20 |  1 |
+| PS-18970    | US-2016-164175 | 2016-04-30 |  1 |
+| RA-19885    | CA-2017-101343 | 2017-07-17 |  1 |
+| RB-19465    | CA-2017-158568 | 2017-08-29 |  1 |
+| RB-19705    | US-2018-109484 | 2018-11-06 |  1 |
+| RC-19960    | CA-2015-115259 | 2015-08-25 |  1 |
+| SC-20725    | CA-2017-103730 | 2017-06-12 |  1 |
+| SC-20770    | CA-2017-127208 | 2017-06-12 |  1 |
+| SF-20065    | US-2018-156909 | 2018-07-16 |  1 |
+| SG-20080    | CA-2018-155376 | 2018-12-22 |  1 |
+| SH-19975    | CA-2018-106180 | 2018-09-18 |  1 |
+| SN-20710    | CA-2016-117415 | 2016-12-27 |  1 |
+| SO-20335    | US-2016-108966 | 2016-10-11 |  1 |
+| TB-21055    | CA-2017-111682 | 2017-06-17 |  1 |
+| TB-21520    | US-2016-150630 | 2016-09-17 |  1 |
+| TS-21610    | US-2018-107272 | 2018-11-05 |  1 |
+| ZD-21925    | CA-2015-143336 | 2015-08-27 |  1 |
++-------------+----------------+------------+----+
+69 rows in set (0.01 sec)
+
+mysql> SELECT
+    ->   `Customer Name`,
+    ->   GROUP_CONCAT(DISTINCT `Product Name` SEPARATOR ', ') AS Products_Ordered
+    -> FROM train
+    -> GROUP BY `Customer Name`;
++--------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Customer Name      | Products_Ordered                                                                                                                                                                                                                                                                                                                                                    |
++--------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Alan Dominguez     | Global Deluxe High-Back Manager's Chair                                                                                                                                                                                                                                                                                                                             |
+| Alejandro Grove    | Fellowes Super Stor/Drawer                                                                                                                                                                                                                                                                                                                                          |
+| Andrew Allen       | Xerox 1967                                                                                                                                                                                                                                                                                                                                                          |
+| Brendan Sweed      | Hunt BOSTON Model 1606 High-Volume Electric Pencil Sharpener, Beige, netTALK DUO VoIP Telephone Service                                                                                                                                                                                                                                                             |
+| Brosina Hoffman    | Belkin F5C206VTEL 6 Outlet Surge, Chromcraft Rectangular Conference Tables, DXL Angle-View Binders with Locking Rings by Samsill, Eldon Expressions Wood and Plastic Desk Accessories, Cherry Wood, Konftel 250 ConferenceÂ phoneÂ - Charcoal black, Mitel 5320 IP Phone VoIP phone, Newell 322                                                                     |
+| Christopher Schild | Safco Industrial Wire Shelving                                                                                                                                                                                                                                                                                                                                      |
+| Claire Gute        | Bush Somerset Collection Bookcase, Hon Deluxe Fabric Upholstered Stacking Chairs, Rounded Back                                                                                                                                                                                                                                                                      |
+| Clay Ludtke        | Avery Durable Plastic 1" Binders", Hunt PowerHouse Electric Pencil Sharpener, Blue                                                                                                                                                                                                                                                                                  |
+| Cynthia Voltz      | Magnifier Swing Arm Lamp                                                                                                                                                                                                                                                                                                                                            |
+| Darren Powers      | Avery 485, C-Line Peel & Stick Add-On Filing Pockets, 8-3/4 x 5-1/8, 10/Pack, Global Leather Task Chair, Black, Longer-Life Soft White Bulbs                                                                                                                                                                                                                        |
+| Darrin Van Huff    | Self-Adhesive Address Labels for Typewriters by Universal                                                                                                                                                                                                                                                                                                           |
+| Dave Kipp          | Hon Racetrack Conference Tables                                                                                                                                                                                                                                                                                                                                     |
+| Dorothy Wardle     | Anker 36W 4-Port USB Wall Charger Travel Power Adapter for iPhone 5s 5c 5, Staples, Xerox 1916                                                                                                                                                                                                                                                                      |
+| Duane Noonan       | Premium Writing Pencils, Soft, #2 by Central Association for the Blind, Sortfiler Multipurpose Personal File Organizer, Black                                                                                                                                                                                                                                       |
+| Elpida Rittenbach  | Fellowes Basic Home/Office Series Surge Protectors                                                                                                                                                                                                                                                                                                                  |
+| Emily Burns        | Bretford CR4500 Series Slim Rectangular Table                                                                                                                                                                                                                                                                                                                       |
+| Eric Hoffmann      | ImationÂ 8GB Mini TravelDrive USB 2.0Â Flash Drive, Wilson Jones Active Use Binders                                                                                                                                                                                                                                                                                 |
+| Erin Smith         | Advantus 10-Drawer Portable Organizer, Chrome Metal Frame, Smoke Drawers                                                                                                                                                                                                                                                                                            |
+| Gary Mitchum       | Eldon Portable Mobile Manager                                                                                                                                                                                                                                                                                                                                       |
+| Gary Zandusky      | Universal Premium White Copier/Laser Paper (20Lb. and 87 Bright)                                                                                                                                                                                                                                                                                                    |
+| Gene Hale          | Electrix Architect's Clamp-On Swing Arm Lamp, Black, GE 30524EE4                                                                                                                                                                                                                                                                                                    |
+| Greg Guthrie       | GBC DocuBind 300 Electric Binding Machine                                                                                                                                                                                                                                                                                                                           |
+| Harold Pawlan      | Holmes Replacement Filter for HEPA Air Cleaner, Very Large Room, HEPA Filter, Storex DuraTech Recycled Plastic Frosted Binders                                                                                                                                                                                                                                      |
+| Helen Andreada     | Safco Industrial Wire Shelving                                                                                                                                                                                                                                                                                                                                      |
+| Henry MacAllister  | Avery Binding System Hidden Tab Executive Style Index Sets                                                                                                                                                                                                                                                                                                          |
+| Irene Maddox       | Fellowes PB200 Plastic Comb Binding Machine                                                                                                                                                                                                                                                                                                                         |
+| Janet Martin       | Memorex Mini Travel Drive 8 GB USB 2.0 Flash Drive, Newell Chalk Holder, Speck Products Candyshell Flip Case                                                                                                                                                                                                                                                        |
+| Janet Molinari     | Advantus Push Pins, AT&T CL83451 4-Handset Telephone                                                                                                                                                                                                                                                                                                                |
+| Jim Sink           | Panasonic Kx-TS550, Turquoise Lead Holder with Pocket Clip, Xerox 1995                                                                                                                                                                                                                                                                                              |
+| Joel Eaton         | Eldon Expressions Desk Accessory, Wood Pencil Holder, Oak, High-Back Leather Manager's Chair, Safco Industrial Wire Shelving System, Tenex Traditional Chairmats for Medium Pile Carpet, Standard Lip, 36" x 48"""                                                                                                                                                  |
+| Jonathan Doherty   | Howard Miller 13-3/4" Diameter Brushed Chrome Round Wall Clock"                                                                                                                                                                                                                                                                                                     |
+| Julie Creighton    | Jet-Pak Recycled Peel 'N' Seal Padded Mailers                                                                                                                                                                                                                                                                                                                       |
+| Justin Ellison     | Plantronics CordlessÂ Phone HeadsetÂ with In-line Volume - M214C                                                                                                                                                                                                                                                                                                    |
+| Karen Daniels      | Snap-A-Way Black Print Carbonless Ruled Speed Letter, Triplicate                                                                                                                                                                                                                                                                                                    |
+| Karl Braun         | Ibico Standard Transparent Covers, Seth Thomas 13 1/2" Wall Clock", Xerox 1999                                                                                                                                                                                                                                                                                      |
+| Katherine Ducich   | Trimflex Flexible Post Binders                                                                                                                                                                                                                                                                                                                                      |
+| Ken Black          | Acco Six-Outlet Power Strip, 4' Cord Length, Newell 318                                                                                                                                                                                                                                                                                                             |
+| Ken Brennan        | Economy Binders, SimpliFile Personal File, Black Granite, 15w x 6-15/16d x 11-1/4h                                                                                                                                                                                                                                                                                  |
+| Kunst Miller       | Acco PRESSTEX Data Binder with Storage Hooks, Dark Blue, 14 7/8" X 11""", Luxo Economy Swing Arm Lamp, Verbatim 25 GB 6x Blu-ray Single Layer Recordable Disc, 3/Pack, Xerox 1943                                                                                                                                                                                   |
+| Lena Cacioppo      | Deflect-o DuraMat Lighweight, Studded, Beveled Mat for Low Pile Carpeting, Logitech K350 2.4Ghz Wireless Keyboard                                                                                                                                                                                                                                                   |
+| Lena Creighton     | Fiskars Softgrip Scissors, GBC Wire Binding Strips, Ideal Clamps, Longer-Life Soft White Bulbs, Sanford Colorific Colored Pencils, 12/Box, Xerox 1880, Xerox 195                                                                                                                                                                                                    |
+| Lena Hernandez     | ImationÂ 8gb Micro Traveldrive Usb 2.0Â Flash Drive, LF Elite 3D Dazzle Designer Hard Case Cover, Lf Stylus Pen and Wiper For Apple Iphone 5c Mini Lite                                                                                                                                                                                                             |
+| Linda Cazamias     | Panasonic Kx-TS550                                                                                                                                                                                                                                                                                                                                                  |
+| Lindsay Shagiari   | Eldon Cleatmat Plus Chair Mats for High Pile Carpets, Global Task Chair, Black                                                                                                                                                                                                                                                                                      |
+| Matt Abelman       | Easy-staple paper                                                                                                                                                                                                                                                                                                                                                   |
+| Maureen Gastineau  | Seth Thomas 14" Putty-Colored Wall Clock"                                                                                                                                                                                                                                                                                                                           |
+| Odella Nelson      | Verbatim 25 GB 6x Blu-ray Single Layer Recordable Disc, 25/Pack, Wilson Jones Leather-Like Binders with DublLock Round Rings                                                                                                                                                                                                                                        |
+| Parhena Norris     | 9-3/4 Diameter Round Wall Clock                                                                                                                                                                                                                                                                                                                                     |
+| Patrick O'Donnell  | Gould Plastics 9-Pocket Panel Bin, 18-3/8w x 5-1/4d x 20-1/2h, Black, Novimex Swivel Fabric Task Chair                                                                                                                                                                                                                                                              |
+| Paul Gonzalez      | Avery 511, LogitechÂ LS21 Speaker System - PC Multimedia - 2.1-CH - Wired                                                                                                                                                                                                                                                                                           |
+| Paul Stevenson     | Global Value Mid-Back Manager's Chair, Gray                                                                                                                                                                                                                                                                                                                         |
+| Pete Armstrong     | LogitechÂ Gaming G510s - Keyboard                                                                                                                                                                                                                                                                                                                                   |
+| Pete Kriz          | Stur-D-Stor Shelving, Vertical 5-Shelf: 72"H x 36""W x 18 1/2""D"                                                                                                                                                                                                                                                                                                   |
+| Philip Fox         | Bevis 44 x 96 Conference Tables                                                                                                                                                                                                                                                                                                                                     |
+| Rick Bensley       | Avery Hidden Tab Dividers for Binding Systems, Avery Personal Creations Heavyweight Cards, SanDisk Ultra 64 GB MicroSDHC Class 10 Memory Card                                                                                                                                                                                                                       |
+| Roger Barcio       | Flexible Leather- Look Classic Collection Ring Binder                                                                                                                                                                                                                                                                                                               |
+| Ruben Ausman       | Eldon Base for stackable storage shelf, platinum                                                                                                                                                                                                                                                                                                                    |
+| Ryan Crowe         | OIC Colored Binder Clips, Assorted Sizes, Redi-Strip #10 Envelopes, 4 1/8 x 9 1/2, Tyvek  Top-Opening Peel & Seel Envelopes, Plain White, Xerox 1921                                                                                                                                                                                                                |
+| Sally Hughsby      | Convenience Packs of Business Envelopes, Newell 343, Xerox 1911                                                                                                                                                                                                                                                                                                     |
+| Sandra Flanagan    | Global Deluxe Stacking Chair, Gray                                                                                                                                                                                                                                                                                                                                  |
+| Sandra Glassco     | Sanyo 2.5 Cubic Foot Mid-Size Office Refrigerators                                                                                                                                                                                                                                                                                                                  |
+| Sean O'Donnell     | Bretford CR4500 Series Slim Rectangular Table, Eldon Fold 'N Roll Cart System                                                                                                                                                                                                                                                                                       |
+| Steve Nguyen       | #10-4 1/8" x 9 1/2"" Premium Diagonal Seam Envelopes", Atlantic Metals Mobile 3-Shelf Bookcases, Custom Colors, Global Fabric Manager's Chair, Dark Gray, Plantronics HL10 Handset Lifter                                                                                                                                                                           |
+| Steven Cartwright  | Artistic Insta-Plaque, Companion Letter/Legal File, Black, DXL Angle-View Binders with Locking Rings by Samsill, Globe Weis Peel & Seel First Class Envelopes, KLD Oscar II Style Snap-on Ultra Thin Side Flip Synthetic Leather Cover Case for HTC One HTC M7                                                                                                      |
+| Stewart Carmichael | 1.7 Cubic Foot Compact "Cube"" Office Refrigerators", Avery Heavy-Duty EZD  Binder With Locking Rings                                                                                                                                                                                                                                                               |
+| Ted Butterfield    | Array Parchment Paper, Assorted Colors, Home/Office Personal File Carts, ImationÂ 8gb Micro Traveldrive Usb 2.0Â Flash Drive, Novimex Turbo Task Chair, Plastic Binding Combs, Prang Dustless Chalk Sticks, Xerox 232                                                                                                                                               |
+| Tracy Blumstein    | Avery Recycled Flexi-View Covers for Binding Systems, BOSTON Model 1800 Electric Pencil Sharpeners, Putty/Woodgrain, Howard Miller 13-3/4" Diameter Brushed Chrome Round Wall Clock", Lumber Crayons, Poly String Tie Envelopes, Riverside Palais Royal Lawyers Bookcase, Royale Cherry Finish, Telephone Message Books with Fax/Mobile Section, 5 1/2" x 3 3/16""" |
+| Troy Staebel       | Avery Durable Slant Ring Binders, No Labels, Trav-L-File Heavy-Duty Shuttle II, Black                                                                                                                                                                                                                                                                               |
+| Zuschuss Donatelli | Cisco SPA 501G IP Phone, Newell 341, Wilson Jones Hanging View Binder, White, 1""                                                                                                                                                                                                                                                                                   |
++--------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+69 rows in set (0.01 sec)
+
+mysql> SELECT
+    ->   `Order ID`,
+    ->   `Order Date`,
+    ->   CASE
+    ->     WHEN DAYOFWEEK(STR_TO_DATE(`Order Date`, '%d/%m/%Y')) IN (1, 7) THEN 'Weekend'
+    ->     ELSE 'Weekday'
+    ->   END AS Order_Day_Type
+    -> FROM train;
++----------------+------------+----------------+
+| Order ID       | Order Date | Order_Day_Type |
++----------------+------------+----------------+
+| CA-2017-152156 | 08/11/2017 | Weekday        |
+| CA-2017-152156 | 08/11/2017 | Weekday        |
+| CA-2017-138688 | 12/06/2017 | Weekday        |
+| US-2016-108966 | 11/10/2016 | Weekday        |
+| US-2016-108966 | 11/10/2016 | Weekday        |
+| CA-2015-115812 | 09/06/2015 | Weekday        |
+| CA-2015-115812 | 09/06/2015 | Weekday        |
+| CA-2015-115812 | 09/06/2015 | Weekday        |
+| CA-2015-115812 | 09/06/2015 | Weekday        |
+| CA-2015-115812 | 09/06/2015 | Weekday        |
+| CA-2015-115812 | 09/06/2015 | Weekday        |
+| CA-2015-115812 | 09/06/2015 | Weekday        |
+| CA-2018-114412 | 15/04/2018 | Weekend        |
+| CA-2017-161389 | 05/12/2017 | Weekday        |
+| US-2016-118983 | 22/11/2016 | Weekday        |
+| US-2016-118983 | 22/11/2016 | Weekday        |
+| CA-2015-105893 | 11/11/2015 | Weekday        |
+| CA-2015-167164 | 13/05/2015 | Weekday        |
+| CA-2015-143336 | 27/08/2015 | Weekday        |
+| CA-2015-143336 | 27/08/2015 | Weekday        |
+| CA-2015-143336 | 27/08/2015 | Weekday        |
+| CA-2017-137330 | 09/12/2017 | Weekend        |
+| CA-2017-137330 | 09/12/2017 | Weekend        |
+| US-2018-156909 | 16/07/2018 | Weekday        |
+| CA-2016-106320 | 25/09/2016 | Weekend        |
+| CA-2017-121755 | 16/01/2017 | Weekday        |
+| CA-2017-121755 | 16/01/2017 | Weekday        |
+| US-2016-150630 | 17/09/2016 | Weekend        |
+| US-2016-150630 | 17/09/2016 | Weekend        |
+| US-2016-150630 | 17/09/2016 | Weekend        |
+| US-2016-150630 | 17/09/2016 | Weekend        |
+| US-2016-150630 | 17/09/2016 | Weekend        |
+| US-2016-150630 | 17/09/2016 | Weekend        |
+| CA-2018-107727 | 19/10/2018 | Weekday        |
+| CA-2017-117590 | 08/12/2017 | Weekday        |
+| CA-2017-117590 | 08/12/2017 | Weekday        |
+| CA-2016-117415 | 27/12/2016 | Weekday        |
+| CA-2016-117415 | 27/12/2016 | Weekday        |
+| CA-2016-117415 | 27/12/2016 | Weekday        |
+| CA-2016-117415 | 27/12/2016 | Weekday        |
+| CA-2018-120999 | 10/09/2018 | Weekday        |
+| CA-2017-101343 | 17/07/2017 | Weekday        |
+| CA-2018-139619 | 19/09/2018 | Weekday        |
+| CA-2017-118255 | 11/03/2017 | Weekend        |
+| CA-2017-118255 | 11/03/2017 | Weekend        |
+| CA-2015-146703 | 20/10/2015 | Weekday        |
+| CA-2017-169194 | 20/06/2017 | Weekday        |
+| CA-2017-169194 | 20/06/2017 | Weekday        |
+| CA-2016-115742 | 18/04/2016 | Weekday        |
+| CA-2016-115742 | 18/04/2016 | Weekday        |
+| CA-2016-115742 | 18/04/2016 | Weekday        |
+| CA-2016-115742 | 18/04/2016 | Weekday        |
+| CA-2017-105816 | 11/12/2017 | Weekday        |
+| CA-2017-105816 | 11/12/2017 | Weekday        |
+| CA-2017-111682 | 17/06/2017 | Weekend        |
+| CA-2017-111682 | 17/06/2017 | Weekend        |
+| CA-2017-111682 | 17/06/2017 | Weekend        |
+| CA-2017-111682 | 17/06/2017 | Weekend        |
+| CA-2017-111682 | 17/06/2017 | Weekend        |
+| CA-2017-111682 | 17/06/2017 | Weekend        |
+| CA-2017-111682 | 17/06/2017 | Weekend        |
+| CA-2016-135545 | 24/11/2016 | Weekday        |
+| CA-2016-135545 | 24/11/2016 | Weekday        |
+| CA-2016-135545 | 24/11/2016 | Weekday        |
+| CA-2016-135545 | 24/11/2016 | Weekday        |
+| US-2016-164175 | 30/04/2016 | Weekend        |
+| CA-2015-106376 | 05/12/2015 | Weekend        |
+| CA-2015-106376 | 05/12/2015 | Weekend        |
+| CA-2017-119823 | 04/06/2017 | Weekend        |
+| CA-2017-106075 | 18/09/2017 | Weekday        |
+| CA-2018-114440 | 14/09/2018 | Weekday        |
+| US-2016-134026 | 26/04/2016 | Weekday        |
+| US-2016-134026 | 26/04/2016 | Weekday        |
+| US-2016-134026 | 26/04/2016 | Weekday        |
+| US-2018-118038 | 09/12/2018 | Weekend        |
+| US-2018-118038 | 09/12/2018 | Weekend        |
+| US-2015-147606 | 26/11/2015 | Weekday        |
+| CA-2017-127208 | 12/06/2017 | Weekday        |
+| CA-2017-127208 | 12/06/2017 | Weekday        |
+| CA-2015-139451 | 12/10/2015 | Weekday        |
+| CA-2015-139451 | 12/10/2015 | Weekday        |
+| CA-2016-149734 | 03/09/2016 | Weekend        |
+| US-2018-119662 | 13/11/2018 | Weekday        |
+| CA-2018-140088 | 28/05/2018 | Weekday        |
+| CA-2018-155558 | 26/10/2018 | Weekday        |
+| CA-2018-155558 | 26/10/2018 | Weekday        |
+| CA-2017-159695 | 05/04/2017 | Weekday        |
+| CA-2017-109806 | 17/09/2017 | Weekend        |
+| CA-2017-109806 | 17/09/2017 | Weekend        |
+| CA-2017-109806 | 17/09/2017 | Weekend        |
+| CA-2016-149587 | 31/01/2016 | Weekend        |
+| CA-2016-149587 | 31/01/2016 | Weekend        |
+| CA-2016-149587 | 31/01/2016 | Weekend        |
+| US-2018-109484 | 06/11/2018 | Weekday        |
+| CA-2018-161018 | 09/11/2018 | Weekday        |
+| CA-2018-157833 | 17/06/2018 | Weekend        |
+| CA-2017-149223 | 06/09/2017 | Weekday        |
+| CA-2017-158568 | 29/08/2017 | Weekday        |
+| CA-2017-158568 | 29/08/2017 | Weekday        |
+| CA-2017-158568 | 29/08/2017 | Weekday        |
+| CA-2017-129903 | 01/12/2017 | Weekday        |
+| US-2016-156867 | 13/11/2016 | Weekend        |
+| US-2016-156867 | 13/11/2016 | Weekend        |
+| CA-2018-119004 | 23/11/2018 | Weekday        |
+| CA-2018-119004 | 23/11/2018 | Weekday        |
+| CA-2018-119004 | 23/11/2018 | Weekday        |
+| CA-2016-129476 | 15/10/2016 | Weekend        |
+| CA-2018-146780 | 25/12/2018 | Weekday        |
+| CA-2017-128867 | 03/11/2017 | Weekday        |
+| CA-2017-128867 | 03/11/2017 | Weekday        |
+| CA-2015-115259 | 25/08/2015 | Weekday        |
+| CA-2015-115259 | 25/08/2015 | Weekday        |
+| CA-2015-115259 | 25/08/2015 | Weekday        |
+| CA-2015-115259 | 25/08/2015 | Weekday        |
+| CA-2016-110457 | 02/03/2016 | Weekday        |
+| US-2016-136476 | 05/04/2016 | Weekday        |
+| CA-2017-103730 | 12/06/2017 | Weekday        |
+| CA-2017-103730 | 12/06/2017 | Weekday        |
+| CA-2017-103730 | 12/06/2017 | Weekday        |
+| CA-2017-103730 | 12/06/2017 | Weekday        |
+| CA-2017-103730 | 12/06/2017 | Weekday        |
+| US-2015-152030 | 26/12/2015 | Weekend        |
+| US-2015-134614 | 20/09/2015 | Weekend        |
+| US-2018-107272 | 05/11/2018 | Weekday        |
+| US-2018-107272 | 05/11/2018 | Weekday        |
+| US-2017-125969 | 06/11/2017 | Weekday        |
+| US-2017-125969 | 06/11/2017 | Weekday        |
+| US-2018-164147 | 02/02/2018 | Weekday        |
+| US-2018-164147 | 02/02/2018 | Weekday        |
+| US-2018-164147 | 02/02/2018 | Weekday        |
+| CA-2017-145583 | 13/10/2017 | Weekday        |
+| CA-2017-145583 | 13/10/2017 | Weekday        |
+| CA-2017-145583 | 13/10/2017 | Weekday        |
+| CA-2017-145583 | 13/10/2017 | Weekday        |
+| CA-2017-145583 | 13/10/2017 | Weekday        |
+| CA-2017-145583 | 13/10/2017 | Weekday        |
+| CA-2017-145583 | 13/10/2017 | Weekday        |
+| CA-2017-110366 | 05/09/2017 | Weekday        |
+| CA-2018-106180 | 18/09/2018 | Weekday        |
+| CA-2018-106180 | 18/09/2018 | Weekday        |
+| CA-2018-106180 | 18/09/2018 | Weekday        |
+| CA-2018-155376 | 22/12/2018 | Weekend        |
+| CA-2016-110744 | 07/09/2016 | Weekday        |
+| CA-2015-110072 | 22/10/2015 | Weekday        |
+| CA-2017-114489 | 05/12/2017 | Weekday        |
++----------------+------------+----------------+
+145 rows in set (0.01 sec)
